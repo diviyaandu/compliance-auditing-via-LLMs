@@ -33,27 +33,38 @@ Unlike prior binary-override hybrids (rule engine always wins, LLM decides other
 ```
 ├── data/
 │   ├── raw/
-│   │   └── sanctions/          # OFAC SDN.CSV, ADD.CSV, ALT.CSV, OpenSanctions targets.simple.csv
+│   │   ├── sanctions/                    # OFAC and OpenSanctions source files
+│   │   ├── 18MDKYCD8E68EB13629A4A82BE8E06E606C57E57.pdf
+│   │   └── fatf-recommendations.pdf
 │   └── processed/
-│       ├── kyc_clauses.json    # 72 labeled synthetic KYC/AML clauses
-│       ├── train.json / val.json / test.json
-│       └── sanctions_entities.json
+│       ├── train.json
+│       ├── val.json
+│       ├── test.json
+│       ├── sanctions_entities.json
+│       └── baseline1_rule_only.json
+├── eval/
+│   ├── test_rule_engine.py             # pytest unit tests for the rule engine
+│   └── results/
+│       ├── baseline1_rule_only.json
+│       ├── baseline2_finbert_only.json
+│       ├── baseline3_hybrid_override.json
+│       └── novel_escalation_model.json
+├── models/
+│   └── finbert_kyc/                    # fine-tuned model weights (gitignored)
 ├── rules/
-│   └── rule_base.json          # 23 rules extracted from RBI KYC Direction + FATF Recommendations
+│   └── rule_base.json                  # 23 rules extracted from RBI KYC Direction + FATF Recommendations
 ├── scripts/
-│   ├── rule_engine.py
 │   ├── build_sanctions_db.py
 │   ├── entity_matching.py
-│   ├── split_dataset.py
-│   ├── finetune_finbert.py
 │   ├── eval_baseline1_rule_only.py
 │   ├── eval_baseline3_hybrid.py
-│   └── eval_escalation_model.py
-├── eval/
-│   ├── test_rule_engine.py     # pytest unit tests for the rule engine
-│   └── results/                # JSON outputs from each baseline evaluation
-├── models/
-│   └── finbert_kyc/             # fine-tuned model weights (gitignored — see below)
+│   ├── eval_escalation_model.py
+│   ├── finetune_finbert.py
+│   ├── rule_engine.py
+│   ├── split_dataset.py
+│   └── test_setup.py
+├── .gitignore
+├── README.md
 └── requirements.txt
 ```
 
